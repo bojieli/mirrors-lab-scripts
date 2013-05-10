@@ -6,46 +6,47 @@ LOGDIR=$HOME/log
 LOCKDIR=$HOME/lock
 DATADIR=/srv/array/exports
 
-mirrors=( \
-	"apache" "chakra" "mysql" "gimp" "sagemath" \
-	"tldp" "postgresql" "pythonxy" "raspbian" "lfs/lfs-website" \
-	"X" "vim" "rfc" "raspberrypi" "mariadb" \
-	"mozilla-releases" "trisquel" "kernel.org" "manjaro" \
+mirrors=(
+	"apache" "chakra" "mysql" "gimp" "sagemath"
+	"tldp" "postgresql" "pythonxy" "raspbian" "lfs/lfs-website"
+	"X" "vim" "rfc" "raspberrypi" "mariadb"
+	"mozilla-releases" "trisquel" "kernel.org" "manjaro" "openvz"
 )
-sources=( \
-	"rsync.apache.org::apache-dist" \
-	"chakra-project.org::chakra" \
-	"rsync://ftp5.gwdg.de/pub/linux/mysql/" \
-	"rsync://rsync.mirrorservice.org/ftp.gimp.org/pub/gimp/" \
-	"rsync.mirrorservice.org::www.sagemath.org" \
-	"rsync.mirrorservice.org::www.tldp.org" \
-	"rsync.mirrorservice.org::ftp.postgresql.org" \
-	"rsync.mirrorservice.org::pythonxy.com" \
-	"rsync.mirrorservice.org::archive.raspbian.org" \
-	"linuxfromscratch.org::lfs-website" \
-	"rsync://rsync.mirrorservice.org/ftp.x.org/pub/" \
-	"ftp.vim.org::Vim" \
-	"ftp.vim.org::RFC" \
-	"ftp.vim.org::raspberrypi" \
-	"rsync.osuosl.org::mariadb" \
-	"releases-rsync.mozilla.org::mozilla-releases" \
-	"rsync.trisquel.info::trisquel.packages" \
-	"rsync://rsync.kernel.org/pub/" \
-	"rsync://ftp.rz.tu-bs.de/pub/mirror/manjaro.org/repos/" \
+sources=(
+	"rsync.apache.org::apache-dist"
+	"chakra-project.org::chakra"
+	"rsync://ftp5.gwdg.de/pub/linux/mysql/"
+	"rsync://rsync.mirrorservice.org/ftp.gimp.org/pub/gimp/"
+	"rsync.mirrorservice.org::www.sagemath.org"
+	"rsync.mirrorservice.org::www.tldp.org"
+	"rsync.mirrorservice.org::ftp.postgresql.org"
+	"rsync.mirrorservice.org::pythonxy.com"
+	"rsync.mirrorservice.org::archive.raspbian.org"
+	"linuxfromscratch.org::lfs-website"
+	"rsync://rsync.mirrorservice.org/ftp.x.org/pub/"
+	"ftp.vim.org::Vim"
+	"ftp.vim.org::RFC"
+	"ftp.vim.org::raspberrypi"
+	"rsync.osuosl.org::mariadb"
+	"releases-rsync.mozilla.org::mozilla-releases"
+	"rsync.trisquel.info::trisquel.packages"
+	"rsync://rsync.kernel.org/pub/"
+	"rsync://ftp.rz.tu-bs.de/pub/mirror/manjaro.org/repos/"
+	"rsync://download.openvz.org/openvz-download/"
 )
-params=( \
-	"--safe-links" "" "" "" "" \
-	"" "" "" "" "" \
-	"" "" "" "" "--partial --delay-updates" \
-	"" "" "" "" \
+params=(
+	"--safe-links" "" "" "" ""
+	"" "" "" "" ""
+	"" "" "" "" "--partial --delay-updates"
+	"" "" "" "" ""
 )
 
-not_synced_mirrors=( \
-	"php.net" "archlinuxarm" "openwrt" "lfs/clfs" "lfs/lfs" \
-	"lfs/lfs-livecd" "android-releases" \
+not_synced_mirrors=(
+	"php.net" "archlinuxarm" "openwrt" "lfs/clfs" "lfs/lfs"
+	"lfs/lfs-livecd" "android-releases" "android-src-versioned"
 )
-mirrors_synced_by_other_scripts=( \
-	"pypi" "rubygems" "npm" "chromiumos" "android-src" \
+mirrors_synced_by_other_scripts=(
+	"pypi" "rubygems" "npm" "chromiumos" "android-src"
 )
 
 len=${#mirrors[@]}
