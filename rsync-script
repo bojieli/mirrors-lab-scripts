@@ -11,7 +11,7 @@ mirrors=(
 	"tldp" "postgresql" "pythonxy" "raspbian" "lfs/lfs-website"
 	"X" "vim" "rfc" "raspberrypi" "mariadb"
 	"mozilla-releases" "trisquel" "kernel.org" "manjaro" "openvz"
-	"ruby"
+	"ruby" "archlinuxarm"
 )
 sources=(
 	"rsync.apache.org::apache-dist"
@@ -35,17 +35,18 @@ sources=(
 	"rsync://ftp.rz.tu-bs.de/pub/mirror/manjaro.org/repos/"
 	"rsync://download.openvz.org/openvz-download/"
 	"rsync://www.mirrorservice.org/ftp.ruby-lang.org/pub/ruby/"
+	"mirrors.tuna.tsinghua.edu.cn::archlinuxarm"
 )
 params=(
 	"--safe-links" "" "" "" ""
 	"" "" "" "" ""
 	"" "" "" "" "--partial --delay-updates"
 	"" "" "" "" ""
-	""
+	"" ""
 )
 
 not_synced_mirrors=(
-	"php.net" "archlinuxarm" "openwrt" "lfs/clfs" "lfs/lfs"
+	"openwrt" "lfs/clfs" "lfs/lfs"
 	"lfs/lfs-livecd" "android-releases" "android-src-versioned"
 )
 mirrors_synced_by_other_scripts=(
@@ -68,7 +69,7 @@ do
 	echo "===== BEGIN MIRRORS-LAB =====" >>$logfile
 	date >>$logfile
 
-	rsync_command="rsync -avC --delete --delete-after ${params[$i]} ${sources[$i]} $DATADIR/${mirrors[$i]}"
+	rsync_command="rsync -av --delete --delete-after ${params[$i]} ${sources[$i]} $DATADIR/${mirrors[$i]}"
 	echo $rsync_command >>$logfile
 	$rsync_command >>$logfile 2>&1
 
