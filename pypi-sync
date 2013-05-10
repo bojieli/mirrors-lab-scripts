@@ -1,0 +1,19 @@
+#!/bin/bash
+HOME="/home/boj"
+LOCKFILE="$HOME/lock/pypi"
+LOGFILE="$HOME/log/pypi.log"
+
+if [ -f $LOCKFILE ]; then
+	exit
+fi
+
+touch $LOCKFILE
+
+echo >>$LOGFILE
+echo "===== BEGIN MIRRORS-LAB =====" >>$LOGFILE
+date >>$LOGFILE
+/home/boj/scripts/pep381client-1.5/scripts/pep381run /srv/array/exports/pypi/ >>$LOGFILE 2>&1
+date >>$LOGFILE
+echo "===== END MIRRORS-LAB =====" >>$LOGFILE
+
+rm $LOCKFILE

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+cd /srv/array/exports/android-src
+
+# init
+#/home/boj/scripts/google-repo init -u https://android.googlesource.com/platform/manifest
+
+# sync
+repo sync
