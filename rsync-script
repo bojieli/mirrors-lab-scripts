@@ -11,6 +11,7 @@ mirrors=(
 	"tldp" "postgresql" "pythonxy" "raspbian" "lfs/lfs-website"
 	"X" "vim" "rfc" "raspberrypi" "mariadb"
 	"mozilla-releases" "trisquel" "kernel.org" "manjaro" "openvz"
+	"ruby"
 )
 sources=(
 	"rsync.apache.org::apache-dist"
@@ -33,12 +34,14 @@ sources=(
 	"rsync://rsync.kernel.org/pub/"
 	"rsync://ftp.rz.tu-bs.de/pub/mirror/manjaro.org/repos/"
 	"rsync://download.openvz.org/openvz-download/"
+	"rsync://www.mirrorservice.org/ftp.ruby-lang.org/pub/ruby/"
 )
 params=(
 	"--safe-links" "" "" "" ""
 	"" "" "" "" ""
 	"" "" "" "" "--partial --delay-updates"
 	"" "" "" "" ""
+	""
 )
 
 not_synced_mirrors=(
