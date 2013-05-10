@@ -11,7 +11,7 @@ mirrors=(
 	"tldp" "postgresql" "pythonxy" "raspbian" "lfs/lfs-website"
 	"X" "vim" "rfc" "raspberrypi" "mariadb"
 	"mozilla-releases" "trisquel" "kernel.org" "manjaro" "openvz"
-	"ruby" "archlinuxarm"
+	"ruby"
 )
 sources=(
 	"rsync.apache.org::apache-dist"
@@ -35,15 +35,16 @@ sources=(
 	"rsync://ftp.rz.tu-bs.de/pub/mirror/manjaro.org/repos/"
 	"rsync://download.openvz.org/openvz-download/"
 	"rsync://www.mirrorservice.org/ftp.ruby-lang.org/pub/ruby/"
-	"mirrors.tuna.tsinghua.edu.cn::archlinuxarm"
 )
 params=(
 	"--safe-links" "" "" "" ""
 	"" "" "" "" ""
 	"" "" "" "" "--partial --delay-updates"
 	"" "" "" "" ""
-	"" ""
+	""
 )
+
+# The following lines are informational only
 
 not_synced_mirrors=(
 	"openwrt" "lfs/clfs" "lfs/lfs"
@@ -52,6 +53,11 @@ not_synced_mirrors=(
 mirrors_synced_by_other_scripts=(
 	"pypi" "rubygems" "npm" "chromiumos" "android-src"
 )
+mirrors_by_rsync_push=(
+	"archlinuxarm"
+)
+
+# main script below
 
 len=${#mirrors[@]}
 for((i=0;i<len;i++))

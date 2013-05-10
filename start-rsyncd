@@ -1,0 +1,2 @@
+#!/bin/bash
+rsync --daemon --config=/home/boj/scripts/rsyncd.conf --port=50000
