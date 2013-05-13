@@ -20,15 +20,23 @@ echo >>$LOGFILE
 echo "===== BEGIN MIRRORS-LAB =====" >>$LOGFILE
 date >>$LOGFILE
 
-cd /srv/array/exports/hackage/;
+echo "Downloading index file..."
+cd /srv/array/exports/hackage/
+wget -q http://hackage.haskell.org/packages/archive/00-index.tar.gz -O 00-index.tar.gz.tmp >>$LOGFILE 2>&1
+mv 00-index.tar.gz.tmp 00-index.tar.gz
 
+echo "Synchronizing packages..."
+(
 for splitpk in `tar tf 00-index.tar.gz | cut -d/ -f 2,3`; do
 	pk=`echo $splitpk | sed 's|/|-|'`
 	name=$pk.tar.gz
-	if [ ! -a package/$name ]; then
-		wget http://hackage.haskell.org/packages/archive/$splitpk/$name -O package/$name
+	if [ ! -a archive/$name ]; then
+		wget -q http://hackage.haskell.org/packages/archive/$splitpk/$name -O archive/$name.tmp
+		mv archive/$name.tmp archive/$name
+		echo $name
 	fi
 done
+) >>$LOGFILE 2>&1
 
 date >>$LOGFILE
 echo "===== END MIRRORS-LAB =====" >>$LOGFILE
