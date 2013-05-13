@@ -48,10 +48,10 @@ params=(
 
 not_synced_mirrors=(
 	"openwrt" "lfs/clfs" "lfs/lfs"
-	"lfs/lfs-livecd" "android-releases" "android-src-versioned"
+	"lfs/lfs-livecd" "android-releases" "android-src-versioned" "anthon"
 )
 mirrors_synced_by_other_scripts=(
-	"pypi" "rubygems" "npm" "chromiumos" "android-src"
+	"pypi" "rubygems" "npm" "chromiumos" "android-src" "hackage"
 )
 mirrors_by_rsync_push=(
 	"archlinuxarm"
