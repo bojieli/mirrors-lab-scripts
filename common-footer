@@ -1,0 +1,6 @@
+#!/bin/bash
+
+date >>$LOGFILE
+echo "===== END MIRRORS-LAB =====" >>$LOGFILE
+
+rm $LOCKFILE

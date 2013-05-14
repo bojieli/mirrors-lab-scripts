@@ -1,0 +1,7 @@
+#!/bin/bash
+NAME="openwrt"
+source "common-header"
+
+lftp http://downloads.openwrt.org/ -e "mirror --no-perms --no-umask --parallel=10 . /srv/array/exports/openwrt/" >>$LOGFILE 2>&1
+
+source "common-footer"

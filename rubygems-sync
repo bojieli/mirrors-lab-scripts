@@ -1,19 +1,7 @@
 #!/bin/bash
-HOME="/home/boj"
-LOCKFILE="$HOME/lock/rubygems"
-LOGFILE="$HOME/log/rubygems.log"
+NAME="rubygems"
+source common-header
 
-if [ -f $LOCKFILE ]; then
-	exit
-fi
-
-touch $LOCKFILE
-
-echo >>$LOGFILE
-echo "===== BEGIN MIRRORS-LAB =====" >>$LOGFILE
-date >>$LOGFILE
 gem mirror >>$LOGFILE 2>&1
-date >>$LOGFILE
-echo "===== END MIRRORS-LAB =====" >>$LOGFILE
 
-rm $LOCKFILE
+source common-footer

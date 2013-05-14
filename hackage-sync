@@ -1,32 +1,21 @@
 #!/bin/bash
 
+NAME="hackage"
+source common-header
+
 # initialize
 # lftp -e "mirror --parallel=10 http://hackage.haskell.org/packages/ /srv/array/exports/hackage/"
 
 # incremental sync
 # forked from: http://bitcheese.net/wiki/howto/setup-hackage-mirror
 
-HOME="/home/boj"
-LOCKFILE="$HOME/lock/hackage"
-LOGFILE="$HOME/log/hackage.log"
-
-if [ -f $LOCKFILE ]; then
-	exit
-fi
-
-touch $LOCKFILE
-
-echo >>$LOGFILE
-echo "===== BEGIN MIRRORS-LAB =====" >>$LOGFILE
-date >>$LOGFILE
-
+(
 echo "Downloading index file..."
 cd /srv/array/exports/hackage/
-wget -q http://hackage.haskell.org/packages/archive/00-index.tar.gz -O 00-index.tar.gz.tmp >>$LOGFILE 2>&1
+wget -q http://hackage.haskell.org/packages/archive/00-index.tar.gz -O 00-index.tar.gz.tmp
 mv 00-index.tar.gz.tmp 00-index.tar.gz
 
 echo "Synchronizing packages..."
-(
 for splitpk in `tar tf 00-index.tar.gz | cut -d/ -f 2,3`; do
 	pk=`echo $splitpk | sed 's|/|-|'`
 	name=$pk.tar.gz
@@ -38,7 +27,4 @@ for splitpk in `tar tf 00-index.tar.gz | cut -d/ -f 2,3`; do
 done
 ) >>$LOGFILE 2>&1
 
-date >>$LOGFILE
-echo "===== END MIRRORS-LAB =====" >>$LOGFILE
-
-rm $LOCKFILE
+source common-footer

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ -z $NAME ]; then
+	exit 1
+fi
+
+HOME="/home/boj"
+LOCKFILE="$HOME/lock/$NAME"
+LOGFILE="$HOME/log/$NAME.log"
+
+if [ -f $LOCKFILE ]; then
+	exit 1
+fi
+
+touch $LOCKFILE
+
+echo >>$LOGFILE
+echo "===== BEGIN MIRRORS-LAB =====" >>$LOGFILE
+date >>$LOGFILE

@@ -1,9 +1,14 @@
 #!/bin/bash
 
+NAME="android-src"
+source common-header
+
 cd /srv/array/exports/android-src
 
 # init
 #/home/boj/scripts/google-repo init -u https://android.googlesource.com/platform/manifest
 
 # sync
-repo sync
+repo sync >>$LOGFILE 2>&1
+
+source common-footer
