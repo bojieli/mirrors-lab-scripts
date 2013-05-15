@@ -71,18 +71,18 @@ do
 
 	touch $lockfile
 
-	logfile="$LOGDIR/${mirrors[$i]}.log"
-	echo >>$logfile
-	echo "===== BEGIN MIRRORS-LAB =====" >>$logfile
-	date >>$logfile
+	echo
+	echo "===== BEGIN MIRRORS-LAB ====="
+	date
 
 	rsync_command="rsync -av --delete --delete-after ${params[$i]} ${sources[$i]} $DATADIR/${mirrors[$i]}"
-	echo $rsync_command >>$logfile
-	$rsync_command >>$logfile 2>&1
+	echo $rsync_command
+	$rsync_command
 
-	date >>$logfile
-	echo "===== END MIRRORS-LAB =====" >>$logfile
+	date
+	echo "===== END MIRRORS-LAB ====="
 
 	rm $lockfile
-) &
+
+) >>"$LOGDIR/${mirrors[$i]}.log" 2>&1 &
 done
