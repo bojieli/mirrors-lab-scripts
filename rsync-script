@@ -44,20 +44,6 @@ params=(
 	""
 )
 
-# The following lines are informational only
-
-not_synced_mirrors=(
-	"lfs/clfs" "lfs/lfs"
-	"lfs/lfs-livecd" "android-releases" "android-src-versioned"
-)
-mirrors_synced_by_other_scripts=(
-	"pypi" "rubygems" "npm" "chromiumos" "android-src"
-	"hackage" "anthon" "openwrt"
-)
-mirrors_by_rsync_push=(
-	"archlinuxarm"
-)
-
 # main script below
 
 len=${#mirrors[@]}

@@ -1,0 +1,24 @@
+// This file is informational only.
+
+var not_synced_mirrors = {
+	"lfs/clfs": ,
+	"lfs/lfs": ,
+	"lfs/lfs-livecd": ,
+	"android-releases": ,
+	"android-src-versioned": ,
+	"google-v8": "svn checkout http://v8.googlecode.com/svn/ .",
+}
+var mirrors_synced_by_rsync_push = {
+	"archlinuxarm",
+}
+var mirrors_synced_by_special_scripts = {
+	"pypi",
+	"rubygems",
+	"npm",
+	"chromiumos",
+	"android-src",
+	"hackage",
+	"anthon",
+	"openwrt",
+}
+
