@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME="android-src"
-source common-header
+source `dirname $0`/common-header
 
 cd /srv/array/exports/android-src
 
@@ -11,4 +11,4 @@ cd /srv/array/exports/android-src
 # sync
 repo sync >>$LOGFILE 2>&1
 
-source common-footer
+source `dirname $0`/common-footer

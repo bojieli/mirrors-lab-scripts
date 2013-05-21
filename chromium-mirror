@@ -1,8 +1,8 @@
 #!/bin/bash
 NAME="chromiumos"
-source common-header
+source `dirname $0`/common-header
 
 export PATH=$PATH:/home/boj/scripts/depot_tools
 /home/boj/scripts/cros_mirror -r /srv/array/exports/chromiumos -u git://lab.mirrors.ustc.edu.cn/chromiumos >>$LOGFILE 2>&1
 
-source common-footer
+source `dirname $0`/common-footer

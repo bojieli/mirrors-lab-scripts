@@ -1,7 +1,7 @@
 #!/bin/bash
 NAME="pypi"
-source common-header
+source `dirname $0`/common-header
 
 /home/boj/scripts/pep381client-1.5/scripts/pep381run /srv/array/exports/pypi/ >>$LOGFILE 2>&1
 
-source common-footer
+source `dirname $0`/common-footer

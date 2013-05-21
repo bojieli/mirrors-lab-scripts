@@ -1,7 +1,7 @@
 #!/bin/bash
 
 NAME="hackage"
-source common-header
+source `dirname $0`/common-header
 
 # initialize
 # lftp -e "mirror --parallel=10 http://hackage.haskell.org/packages/ /srv/array/exports/hackage/"
@@ -27,4 +27,4 @@ for splitpk in `tar tf 00-index.tar.gz | cut -d/ -f 2,3`; do
 done
 ) >>$LOGFILE 2>&1
 
-source common-footer
+source `dirname $0`/common-footer

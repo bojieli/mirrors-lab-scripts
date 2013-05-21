@@ -6,7 +6,8 @@ var not_synced_mirrors = {
 	"lfs/lfs-livecd": ,
 	"android-releases": ,
 	"android-src-versioned": ,
-	"google-v8": "svn checkout http://v8.googlecode.com/svn/ .",
+	"google-v8": "svn checkout http://v8.googlecode.com/svn/ /srv/array/exports/google-v8/",
+	"webkit": "svn checkout http://svn.webkit.org/repository/webkit/trunk/ /srv/array/exports/webkit/trunk/",
 }
 var mirrors_synced_by_rsync_push = {
 	"archlinuxarm",

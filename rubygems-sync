@@ -1,7 +1,7 @@
 #!/bin/bash
 NAME="rubygems"
-source common-header
+source `dirname $0`/common-header
 
 gem mirror >>$LOGFILE 2>&1
 
-source common-footer
+source `dirname $0`/common-footer
