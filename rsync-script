@@ -11,8 +11,6 @@ DATADIR="/srv/array/exports"
 
 RSYNC_PARAMS="-av --delete --delete-after --address=10.8.95.2"
 
-# main script below
-
 while read mirror source param; do
     # validate mirror, source and param
     mirror=${mirror%%[ #]*}   # lines start with ' ' and '#' should be ignored
