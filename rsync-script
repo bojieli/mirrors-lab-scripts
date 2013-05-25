@@ -1,76 +1,41 @@
 #!/bin/bash
 # rsync script for mirrors-lab
+# Maintainer: Bojie Li <bojieli@gmail.com>
+# Courtesy of Zhang Cheng 2013-05-25
 
 HOME="/home/boj"
 LOGDIR="$HOME/log"
 LOCKDIR="$HOME/lock"
+CONFDIR="$HOME/scripts"
 DATADIR="/srv/array/exports"
 
 RSYNC_PARAMS="-av --delete --delete-after --address=10.8.95.2"
 
-mirrors=(
-	"apache" "chakra" "mysql" "gimp" "sagemath"
-	"tldp" "postgresql" "pythonxy" "raspbian" "lfs/lfs-website"
-	"X" "vim" "rfc" "raspberrypi" "mariadb"
-	"mozilla-releases" "trisquel" "kernel.org" "manjaro" "openvz"
-	"ruby"
-)
-sources=(
-	"rsync.apache.org::apache-dist"
-	"chakra-project.org::chakra"
-	"rsync://ftp5.gwdg.de/pub/linux/mysql/"
-	"rsync://rsync.mirrorservice.org/ftp.gimp.org/pub/gimp/"
-	"rsync.mirrorservice.org::www.sagemath.org"
-	"rsync.mirrorservice.org::www.tldp.org"
-	"rsync.mirrorservice.org::ftp.postgresql.org"
-	"rsync.mirrorservice.org::pythonxy.com"
-	"rsync.mirrorservice.org::archive.raspbian.org"
-	"linuxfromscratch.org::lfs-website"
-	"rsync://rsync.mirrorservice.org/ftp.x.org/pub/"
-	"ftp.vim.org::Vim"
-	"ftp.vim.org::RFC"
-	"ftp.vim.org::raspberrypi"
-	"rsync.osuosl.org::mariadb"
-	"releases-rsync.mozilla.org::mozilla-releases"
-	"rsync.trisquel.info::trisquel.packages"
-	"rsync://rsync.kernel.org/pub/"
-	"rsync://ftp.rz.tu-bs.de/pub/mirror/manjaro.org/repos/"
-	"rsync://download.openvz.org/openvz-download/"
-	"rsync://www.mirrorservice.org/ftp.ruby-lang.org/pub/ruby/"
-)
-params=(
-	"--safe-links" "" "" "" ""
-	"" "" "" "" ""
-	"" "" "" "" "--partial --delay-updates"
-	"" "" "" "" ""
-	""
-)
-
 # main script below
 
-len=${#mirrors[@]}
-for((i=0;i<len;i++))
-do
-( # run in subshell
-	lockfile="$LOCKDIR/${mirrors[$i]}"
-	if [ -f $lockfile ]; then
-		exit # exit subshell
-	fi
+while read mirror source param; do
+    # validate mirror, source and param
+    mirror=${mirror%%[ #]*}   # lines start with ' ' and '#' should be ignored
+    [[ -z "$mirror" || -z "$source" ]] && continue
+    # do more validate stuff if need
 
-	touch $lockfile
+    ( # run in subshell
+	# lock timeout 1 day, no retry
+	lockfile -r 0 -l 86400 ${LOCKDIR}/${mirror}.lock
+    
+    	echo
+    	echo "===== BEGIN MIRRORS-LAB ====="
+    	date
+    
+    	rsync_command="rsync ${RSYNC_PARAMS} ${param} ${source} ${DATADIR}/${mirror}/"
+    	echo $rsync_command
+    	$rsync_command
+    
+    	date
+    	echo "===== END MIRRORS-LAB ====="
+    
+    	rm -f ${LOCKDIR}/${mirror}.lock
+    
+    ) >>"${LOGDIR}/${mirror}.log" 2>&1 &
 
-	echo
-	echo "===== BEGIN MIRRORS-LAB ====="
-	date
-
-	rsync_command="rsync ${RSYNC_PARAMS} ${params[$i]} ${sources[$i]} $DATADIR/${mirrors[$i]}"
-	echo $rsync_command
-	$rsync_command
-
-	date
-	echo "===== END MIRRORS-LAB ====="
-
-	rm $lockfile
-
-) >>"$LOGDIR/${mirrors[$i]}.log" 2>&1 &
-done
+done < ${CONFDIR}/mirrors.conf
