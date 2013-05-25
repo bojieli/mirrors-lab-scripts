@@ -19,7 +19,10 @@ while read mirror source param; do
 
     ( # run in subshell
 	# lock timeout 1 day, no retry
-	lockfile -r 0 -l 86400 ${LOCKDIR}/${mirror}.lock
+	lockfile -r 0 -l 86400 ${LOCKDIR}/${mirror}.lock >/dev/null 2>&1
+	if [[ 0 -ne "$?" ]]; then 
+	    exit 1
+	fi
     
     	echo
     	echo "===== BEGIN MIRRORS-LAB ====="
