@@ -9,6 +9,6 @@ cd /srv/array/exports/android-src
 #/home/boj/scripts/google-repo init -u https://android.googlesource.com/platform/manifest
 
 # sync
-repo sync >>$LOGFILE 2>&1
+/home/boj/scripts/google-repo sync >>$LOGFILE 2>&1
 
 source `dirname $0`/common-footer

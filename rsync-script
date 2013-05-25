@@ -2,9 +2,11 @@
 # rsync script for mirrors-lab
 
 HOME="/home/boj"
-LOGDIR=$HOME/log
-LOCKDIR=$HOME/lock
-DATADIR=/srv/array/exports
+LOGDIR="$HOME/log"
+LOCKDIR="$HOME/lock"
+DATADIR="/srv/array/exports"
+
+RSYNC_PARAMS="-av --delete --delete-after --address=10.8.95.2"
 
 mirrors=(
 	"apache" "chakra" "mysql" "gimp" "sagemath"
@@ -61,7 +63,7 @@ do
 	echo "===== BEGIN MIRRORS-LAB ====="
 	date
 
-	rsync_command="rsync -av --delete --delete-after ${params[$i]} ${sources[$i]} $DATADIR/${mirrors[$i]}"
+	rsync_command="rsync ${RSYNC_PARAMS} ${params[$i]} ${sources[$i]} $DATADIR/${mirrors[$i]}"
 	echo $rsync_command
 	$rsync_command
 

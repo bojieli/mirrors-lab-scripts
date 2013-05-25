@@ -1,9 +1,8 @@
 # m h  dom mon dow   command
 13 3,9,15,21 * * * /home/boj/scripts/rsync-script
-47 2,8,14,20 * * * /home/boj/scripts/pypi-sync
-25 2,8,14,20 * * * /home/boj/scripts/rubygems-sync
+*/5 * * * * /home/boj/scripts/fast-rsync-script
 0 0 * * * 	   /home/boj/scripts/android-mirror
 0 0 * * * 	   /home/boj/scripts/chromium-mirror
 0 0 * * *	   /home/boj/scripts/hackage-sync
-0 4 * * *	   /home/boj/scripts/anthon-sync
+0 2,8,14,20 * * *  /home/boj/scripts/anthon-sync
 0 6 * * *	   /home/boj/scripts/openwrt-sync
