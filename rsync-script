@@ -6,10 +6,14 @@
 HOME="/home/boj"
 LOGDIR="$HOME/log"
 LOCKDIR="$HOME/lock"
-CONFDIR="$HOME/scripts"
 DATADIR="/srv/array/exports"
 
 RSYNC_PARAMS="-av --delete --delete-after --address=10.8.95.2"
+
+if [[ ! -f "$1" ]]; then
+	echo "config file $1 does not exist"
+	exit 1
+fi
 
 while read mirror source param; do
     # validate mirror, source and param
@@ -39,4 +43,4 @@ while read mirror source param; do
     
     ) >>"${LOGDIR}/${mirror}.log" 2>&1 &
 
-done < ${CONFDIR}/mirrors.conf
+done < $1
