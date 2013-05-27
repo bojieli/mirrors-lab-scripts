@@ -1,0 +1,4 @@
+---
+- from: http://mirrors.tuna.tsinghua.edu.cn/rubygems/
+  to: /srv/array/exports/rubygems/
+  parallelism: 10
