@@ -7,3 +7,4 @@
 0 6 * * *	   	/home/boj/scripts/openwrt-sync
 */15 * * * *		/home/boj/scripts/pypi-sync
 */15 * * * *		/home/boj/scripts/rubygems-sync
+0 1 * * *		/home/boj/scripts/archive.raspberrypi.org-sync
