@@ -7,6 +7,7 @@ fi
 HOME="/home/boj"
 LOCKFILE="$HOME/lock/$NAME"
 LOGFILE="$HOME/log/$NAME.log"
+SCRIPTDIR="$HOME/scripts"
 
 if [ -f $LOCKFILE ]; then
 	exit 1

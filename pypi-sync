@@ -2,6 +2,6 @@
 NAME="pypi"
 source `dirname $0`/common-header
 
-/home/boj/scripts/pep381client-1.5/scripts/pep381run /srv/array/exports/pypi/ >>$LOGFILE 2>&1
+$SCRIPTDIR/bandersnatch/bin/bandersnatch -c $SCRIPTDIR/bandersnatch/etc/bandersnatch.conf mirror >>$LOGFILE 2>&1
 
 source `dirname $0`/common-footer
