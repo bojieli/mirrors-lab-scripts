@@ -3,4 +3,4 @@
 date >>$LOGFILE
 echo "===== END MIRRORS-LAB =====" >>$LOGFILE
 
-rm $LOCKFILE
+rm -f $LOCKFILE
