@@ -2,6 +2,10 @@
 NAME="pypi"
 source `dirname $0`/common-header
 
+# sometimes bandersnatch may stuck...
+pkill bandersnatch
+rm /srv/array/exports/pypi/.lock
+
 $SCRIPTDIR/bandersnatch/bin/bandersnatch -c $SCRIPTDIR/bandersnatch/etc/bandersnatch.conf mirror >>$LOGFILE 2>&1
 
 source `dirname $0`/common-footer
