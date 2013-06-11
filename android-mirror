@@ -3,12 +3,11 @@
 NAME="android-src"
 source `dirname $0`/common-header
 
-cd /srv/array/exports/android-src
-
-# init
-#/home/boj/scripts/google-repo init -u https://android.googlesource.com/platform/manifest
-
-# sync
+pushd /srv/array/exports/android-src
 /home/boj/scripts/google-repo sync >>$LOGFILE 2>&1
+popd
 
 source `dirname $0`/common-footer
+
+## repo init script
+## /home/boj/scripts/google-repo init -u https://android.googlesource.com/platform/manifest
