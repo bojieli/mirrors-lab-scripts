@@ -1,12 +1,10 @@
 # m h  dom mon dow   	command
-13 3,9,15,21 * * *	/home/boj/scripts/rsync-script /home/boj/scripts/mirrors.conf
+@reboot			/home/boj/scripts/start-rsyncd
+13 3,9,15,21 * * *	/home/boj/scripts/sync-script rsync /home/boj/scripts/rsync-mirrors.conf
+47 0 * * *	   	/home/boj/scripts/sync-script lftp /home/boj/scripts/lftp-mirrors.conf
 0 0 * * * 	   	/home/boj/scripts/android-mirror
 0 0 * * * 	   	/home/boj/scripts/chromium-mirror
-0 0 * * *	   	/home/boj/scripts/hackage-sync
 0 2,8,14,20 * * *  	/home/boj/scripts/anthon-sync
-0 6 * * *	   	/home/boj/scripts/openwrt-sync
 */5 * * * *		/home/boj/scripts/pypi-sync
 0 1,7,13,19 * * *	/home/boj/scripts/rubygems-sync
-0 1 * * *		/home/boj/scripts/archive.raspberrypi.org-sync
-@reboot			/home/boj/scripts/start-rsyncd
 0 5 * * *		/home/boj/scripts/bandersnatch/bin/bandersnatch -c /home/boj/scripts/bandersnatch/etc/bandersnatch.conf update-stats

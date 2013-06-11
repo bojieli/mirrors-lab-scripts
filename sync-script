@@ -1,5 +1,5 @@
 #!/bin/bash
-# rsync script for mirrors-lab
+# sync script for mirrors-lab
 # Maintainer: Bojie Li <bojieli@gmail.com>
 # Courtesy of Zhang Cheng 2013-05-25
 
@@ -8,10 +8,25 @@ LOGDIR="$HOME/log"
 LOCKDIR="$HOME/lock"
 DATADIR="/srv/array/exports"
 
-RSYNC_PARAMS="-av --delete --delete-after --address=10.8.95.2"
+if [[ -z $1 || -z $2 ]]; then
+	echo "Usage: sync-script <sync-type> <config-file>"
+	exit 1
+fi
 
-if [[ ! -f "$1" ]]; then
-	echo "config file $1 does not exist"
+if [ "$1" == "lftp" ]; then
+	COMMAND_HEADER='lftp -e "mirror --delete'
+	COMMAND_FOOTER='"'
+elif [ "$1" == "rsync" ]; then
+	COMMAND_HEADER='rsync -av --delete --delete-after'
+	COMMAND_FOOTER=''
+else
+	echo "unsupported sync command: $1"
+	exit 1
+fi
+
+CONFIG_FILE=$2
+if [[ ! -f "$CONFIG_FILE" ]]; then
+	echo "config file $CONFIG_FILE does not exist"
 	exit 1
 fi
 
@@ -32,9 +47,9 @@ while read mirror source param; do
     	echo "===== BEGIN MIRRORS-LAB ====="
     	date
     
-    	rsync_command="rsync ${RSYNC_PARAMS} ${param} ${source} ${DATADIR}/${mirror}/"
-    	echo $rsync_command
-    	$rsync_command
+    	full_command="${COMMAND_HEADER} ${param} ${source} ${DATADIR}/${mirror}/ ${COMMAND_FOOTER}"
+    	echo $full_command
+    	eval $full_command
     
     	date
     	echo "===== END MIRRORS-LAB ====="
@@ -43,4 +58,4 @@ while read mirror source param; do
     
     ) >>"${LOGDIR}/${mirror}.log" 2>&1 &
 
-done < $1
+done < $CONFIG_FILE

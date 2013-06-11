@@ -1,7 +1,0 @@
-#!/bin/bash
-NAME="archive.raspberrypi.org"
-source `dirname $0`/common-header
-
-lftp http://$NAME/ -e "mirror --parallel=10 . /srv/array/exports/$NAME/" >>$LOGFILE 2>&1
-
-source `dirname $0`/common-footer
