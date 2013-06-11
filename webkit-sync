@@ -1,0 +1,10 @@
+#!/bin/bash
+
+NAME="webkit"
+source `dirname $0`/common-header
+
+pushd /srv/array/exports/webkit
+svn update >>$LOGFILE 2>&1
+popd
+
+source `dirname $0`/common-footer
