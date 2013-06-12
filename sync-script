@@ -14,7 +14,7 @@ if [[ -z $1 || -z $2 ]]; then
 fi
 
 if [ "$1" == "lftp" ]; then
-	COMMAND_HEADER='lftp -e "mirror --delete'
+	COMMAND_HEADER='lftp -e "mirror --delete --parallel=10'
 	COMMAND_FOOTER='"'
 elif [ "$1" == "rsync" ]; then
 	COMMAND_HEADER='rsync -av --delete --delete-after'
