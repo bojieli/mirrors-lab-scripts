@@ -1,7 +1,8 @@
 # m h  dom mon dow   	command
 @reboot			/home/boj/scripts/start-rsyncd
 13 3,9,15,21 * * *	/home/boj/scripts/sync-script rsync /home/boj/scripts/rsync-mirrors.conf
-47 0 * * *	   	/home/boj/scripts/sync-script lftp /home/boj/scripts/lftp-mirrors.conf
+# lftp is slow, so once a week
+47 0 * * 3	   	/home/boj/scripts/sync-script lftp /home/boj/scripts/lftp-mirrors.conf
 50 6 * * * 	   	/home/boj/scripts/android-mirror
 23 6 * * * 	   	/home/boj/scripts/chromium-mirror
 0 2,8,14,20 * * *  	/home/boj/scripts/anthon-sync
