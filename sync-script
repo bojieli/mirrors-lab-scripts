@@ -13,16 +13,7 @@ if [[ -z $1 || -z $2 ]]; then
 	exit 1
 fi
 
-if [ "$1" == "lftp" ]; then
-	COMMAND_HEADER='lftp -e "mirror --delete --parallel=10'
-	COMMAND_FOOTER='"'
-elif [ "$1" == "rsync" ]; then
-	COMMAND_HEADER='rsync -av --delete --delete-after'
-	COMMAND_FOOTER=''
-else
-	echo "unsupported sync command: $1"
-	exit 1
-fi
+METHOD=$1
 
 CONFIG_FILE=$2
 if [[ ! -f "$CONFIG_FILE" ]]; then
@@ -37,6 +28,35 @@ while read mirror source param; do
     # do more validate stuff if need
 
     ( # run in subshell
+
+	## generate target dirname and sync command
+	target=${DATADIR}/${mirror}/
+	command=""
+	if [ "$METHOD" == "lftp" ]; then
+		command="lftp -e 'mirror --delete --parallel=10 ${param} ${source} ${target}'"
+	elif [ "$METHOD" == "rsync" ]; then
+		command="rsync -av --delete --delete-after ${param} -- ${source} ${target}"
+	elif [ "$METHOD" == "git" ]; then
+		target=${DATADIR}/git-repos/${mirror}.git
+		if [ -f "$target/index" ]; then
+			command="GIT_DIR=${target}; git pull"
+		else ## initial sync
+			command="git clone --mirror -- ${source} ${target}"
+		fi
+	else
+		echo "unsupported sync method $METHOD"
+		exit 1
+	fi
+
+	## check target directory
+	if [ ! -d "$target" ]; then
+		echo "$target not exist, creating it"
+		mkdir -p $target
+		if [ ! -d "$target" ]; then
+			exit 1
+		fi
+	fi
+
 	# lock timeout 1 day, no retry
 	lockfile -r 0 -l 86400 ${LOCKDIR}/${mirror}.lock >/dev/null 2>&1
 	if [[ 0 -ne "$?" ]]; then 
@@ -46,14 +66,14 @@ while read mirror source param; do
     	echo
     	echo "===== BEGIN MIRRORS-LAB ====="
     	date
-    
-    	full_command="${COMMAND_HEADER} ${param} ${source} ${DATADIR}/${mirror}/ ${COMMAND_FOOTER}"
-    	echo $full_command
-    	eval $full_command
+
+    	echo $command
+    	eval $command
     
     	date
     	echo "===== END MIRRORS-LAB ====="
     
+	# remove lock
     	rm -f ${LOCKDIR}/${mirror}.lock
     
     ) >>"${LOGDIR}/${mirror}.log" 2>&1 &
