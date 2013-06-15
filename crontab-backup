@@ -1,12 +1,16 @@
 # m h  dom mon dow   	command
 @reboot			/home/boj/scripts/start-rsyncd
+
+# general mirrors
 13 3,9,15,21 * * *	/home/boj/scripts/sync-script rsync /home/boj/scripts/rsync-mirrors.conf
 # lftp is slow, so once a week
 47 0 * * 3	   	/home/boj/scripts/sync-script lftp /home/boj/scripts/lftp-mirrors.conf
+09 5,11,17,23 * * *	/home/boj/scripts/sync-script git /home/boj/scripts/git-mirrors.conf
+
+# special mirrors
 50 6 * * * 	   	/home/boj/scripts/android-mirror
 23 6 * * * 	   	/home/boj/scripts/chromium-mirror
 0 2,8,14,20 * * *  	/home/boj/scripts/anthon-sync
 */5 * * * *		/home/boj/scripts/pypi-sync
 0 5 * * *		/home/boj/scripts/bandersnatch/bin/bandersnatch -c /home/boj/scripts/bandersnatch/etc/bandersnatch.conf update-stats
 17 1,7,13,19 * * *	/home/boj/scripts/rubygems-sync
-20 6 * * *		/home/boj/scripts/webkit-sync
