@@ -39,7 +39,7 @@ while read mirror source param; do
 	elif [ "$METHOD" == "git" ]; then
 		target=${DATADIR}/git-repos/${mirror}.git
 		if [ -f "$target/config" ]; then
-			command="GIT_DIR=${target}; git pull"
+			command="cd ${target}; git fetch"
 		else ## initial sync
 			command="git clone --mirror -- ${source} ${target}"
 		fi
